@@ -1,6 +1,6 @@
 NAME            = computorv1
 CC              = gcc
-CFLAGS          = -Wall -Wextra -Werror
+CFLAGS          = 
 HEADER          = ./includes
 INCLUDES        = -I$(HEADER)
 

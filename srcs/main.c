@@ -171,6 +171,95 @@ void show_struct(t_struct *left, t_struct *right)
     }   
 }
 
+void    final_init(t_final *final)
+{
+    int i = 0;
+    while (i < 3)
+    {
+        final[i].nb = 0;
+        final[i].exp = abs(i - 2);
+        i++;
+    }
+}
+
+void    reduc_form(t_final* final)
+{
+    int i = 0;
+    double tmp = 0;
+    bool flag = false;
+    printf("Reduced form: ");
+    while (i < 3)
+    {
+        if (final[i].nb != 0)
+        {
+            if (flag == false && final[i].nb != 0)
+            {
+                if (final[i].nb < 0)
+                {
+                    tmp -= final[i].nb;
+                    printf("-");
+                }
+                printf("%g * X^%d", final[i].nb, final[i].exp);
+                flag = true;
+                tmp = 0;
+            }
+            else if (final[i].nb != 0)
+            {
+                if (final[i].nb < 0)
+                {
+                    tmp -= final[i].nb;
+                    printf(" - ");
+                }
+                else
+                {
+                    tmp = final[i].nb;
+                    printf(" + ");
+                }
+                printf("%g * X^%d", tmp, final[i].exp);
+                tmp = 0;
+            }
+        }
+        i++;
+    }
+    printf(" = 0\n");
+}
+
+void calc_debug(t_final* final)
+{
+    printf("deg2 = %g * X^%d\n", final[0].nb, final[0].exp);
+    printf("deg1 = %g * X^%d\n", final[1].nb, final[1].exp);
+    printf("deg0 = %g * X^%d\n", final[2].nb, final[2].exp);
+}
+
+void    calc(t_struct *left, t_struct *right)
+{
+    t_final *final = malloc(sizeof(t_final) * 3);
+    int pos = 0;
+
+    final_init(final);
+
+    while (left)
+    {
+        pos = abs(left->exp - 2);
+        if (left->op == '+')
+            final[pos].nb += left->nb;
+        else
+            final[pos].nb -= left->nb;
+        left = left->next;
+    }
+    while (right)
+    {
+        pos = abs(right->exp - 2);
+        if (right->op == '+')
+            final[pos].nb -= right->nb;
+        else
+            final[pos].nb += right->nb;
+        right = right->next;
+    }
+    calc_debug(final);
+    reduc_form(final);
+}
+
 int main(int ac, char **av)
 {
     if (ac < 2)
@@ -179,6 +268,7 @@ int main(int ac, char **av)
     t_struct*   right = NULL;
 
     parser(av[1], &left, &right);
-    show_struct(left, right);
+    // show_struct(left, right);
+    calc(left, right);
     return (0);
 }
