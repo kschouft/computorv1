@@ -1,9 +1,10 @@
 #pragma once
-#include <stdio.h>
 #include <stdlib.h>
 #include <stdbool.h>
 #include <unistd.h>
-
+#include <stdio.h>
+#include <readline/readline.h>
+#include <readline/history.h>
 
 typedef struct s_struct
 {
@@ -27,6 +28,8 @@ void    show_struct(t_struct *left, t_struct *right);
 void    final_init(t_final *final, int deg);
 void    discriminant(t_final* final);
 void    reduc_form(t_final* final, int deg);
+int     reduc_deg(t_final* final, int deg);
+void    solution(t_final* final, int deg);
 void    calc(t_struct *left, t_struct *right, int deg);
 int     main(int ac, char **av);
 
