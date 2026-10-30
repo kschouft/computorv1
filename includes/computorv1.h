@@ -21,6 +21,14 @@ typedef struct s_final
     int         exp;   
 }               t_final;
 
+//calc
+void    complexe(t_final* final);
+void    discriminant(t_final* final);
+int     reduc_deg(t_final* final, int deg);
+void    solution(t_final* final, int deg);
+void    reduc_form(t_final* final, int deg);
+void    calc(t_struct *left, t_struct *right, int deg);
+
 //debug
 void    show_struct(t_struct *left, t_struct *right);
 

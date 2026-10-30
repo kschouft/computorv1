@@ -10,7 +10,8 @@ CRL             = -L/usr/local/opt/readline/lib \
 SRCS            = srcs/main.c \
                   srcs/debug.c \
                   srcs/parsing.c \
-                  srcs/utils.c
+                  srcs/utils.c \
+				  srcs/calculator.c
 
 OBJS_DIR        = objs
 OBJS            = $(SRCS:srcs/%.c=$(OBJS_DIR)/%.o)

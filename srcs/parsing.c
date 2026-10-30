@@ -53,8 +53,13 @@ int fill_node(char* str, int* i, t_struct* curr, int* deg)
     }
     skip_spaces(str, i);
     if (fill_number(str, i, &curr->nb))
-        return 1;
+        return 1; 
     skip_spaces(str, i);
+    if (str[*i] == '\0')
+    {
+        curr->exp = 0;
+        return 0;
+    }
     if (str[*i] != '*')
         return 1;
     *i += 1;
@@ -67,8 +72,6 @@ int fill_node(char* str, int* i, t_struct* curr, int* deg)
     *i += 1;
     if (fill_exponent(str, i, &curr->exp, deg))
         return 1;
-    if (curr->op == '-')
-        curr->nb = -curr->nb;
     return 0;    
 }
 
@@ -116,7 +119,7 @@ int parser(char* src, t_struct** left, t_struct** right, int* deg)
                 (*curr)->next = NULL;
             }
             if (fill_node(src, &i, *curr, deg))
-            {                
+            {             
                 (*curr)->next = NULL;
                 (*curr) = head;
                 return 1;
