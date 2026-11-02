@@ -105,9 +105,7 @@ void    calc(t_struct *left, t_struct *right, int deg)
 {
     t_final *final = malloc(sizeof(t_final) * (deg + 1));
     int pos = 0;
-
     final_init(final, deg);
-
     while (left)
     {
         pos = left->exp;
@@ -121,4 +119,5 @@ void    calc(t_struct *left, t_struct *right, int deg)
         right = right->next;
     }
     reduc_form(final, deg);
+    free(final);
 }

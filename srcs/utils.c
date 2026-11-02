@@ -52,3 +52,22 @@ double ft_fabs(double nb)
     else
         return (-nb);    
 }
+
+void free_structs(t_struct** left, t_struct** right)
+{
+    t_struct* curr;
+    while (*left)
+    {
+        curr = (*left);
+        *left = (*left)->next;
+        free(curr);
+        curr = NULL;
+    }
+    while (*right)
+    {
+        curr = (*right);
+        *right = (*right)->next;
+        free(curr);
+        curr = NULL;
+    }
+}

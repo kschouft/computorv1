@@ -46,6 +46,7 @@ int     fill_exponent(char *str, int *i, int *exp, int* deg);
 int     fill_number(char* str, int* i, double* nbr);
 int     fill_node(char* str, int* i, t_struct* curr, int* deg);
 int     parser(char* src, t_struct** left, t_struct** right, int* deg);
+int     get_exponent(char *str, int *i, int *exp, int *deg);
 
 //utils
 int     get_degree(char* str);
@@ -54,3 +55,4 @@ void    skip_spaces(char* str, int* i);
 double  ft_sqrt(double nb);
 int     ft_abs(int nb);
 double  ft_fabs(double nb);
+void    free_structs(t_struct** left, t_struct** right);

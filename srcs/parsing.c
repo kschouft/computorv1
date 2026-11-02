@@ -16,6 +16,27 @@ int fill_exponent(char *str, int *i, int *exp, int *deg)
     return 0;
 }
 
+int get_exponent(char *str, int *i, int *exp, int *deg)
+{
+    *i += 1;
+    skip_spaces(str, i);
+    if (str[*i] == '^')
+    {
+        *i += 1;
+        skip_spaces(str,i);
+        return (fill_exponent(str, i, exp, deg));
+    }
+    skip_spaces(str,i);
+    if (str[*i] == '=' || str[*i] == '\0' || str[*i] == '+' || str[*i] == '-' || str[*i] == '*')
+    {
+        *deg = 1;
+        *exp = 1;
+        return 0;
+    }
+    else
+        return 1;
+}
+
 int fill_number(char* str, int* i, double* nbr)
 {
     double nb = 0;
@@ -55,7 +76,7 @@ int fill_node(char* str, int* i, t_struct* curr, int* deg)
     if (fill_number(str, i, &curr->nb))
         return 1; 
     skip_spaces(str, i);
-    if (str[*i] == '\0')
+    if (str[*i] == '\0' || str[*i] == '=')
     {
         curr->exp = 0;
         return 0;
@@ -64,14 +85,13 @@ int fill_node(char* str, int* i, t_struct* curr, int* deg)
         return 1;
     *i += 1;
     skip_spaces(str, i);
-    if (str[*i] != 'X')
+    if (str[*i] == 'X' && get_exponent(str, i, &curr->exp, deg))
         return 1;
-    *i += 1;
-    if (str[*i] != '^')
-        return 1;
-    *i += 1;
-    if (fill_exponent(str, i, &curr->exp, deg))
-        return 1;
+    if (curr->op == '-' && curr->nb >= 0)
+    {
+        int tmp = curr->nb;
+        curr->nb = -tmp;
+    }
     return 0;    
 }
 
@@ -98,8 +118,6 @@ int parser(char* src, t_struct** left, t_struct** right, int* deg)
         }
         else if ((src[i] >= '0' && src[i] <= '9') || src[i] == '+' || src[i] == '-')
         {
-            if (*curr && src[i] >= '0' && src[i] <= '9')
-                return 1;
             if (!(*curr))
             {
                 (*curr) = malloc(sizeof(t_struct));

@@ -11,6 +11,15 @@ void    final_init(t_final *final, int deg)
     }
 }
 
+void    show_sct(t_struct* sct)
+{
+    while((sct))
+    {
+        printf("nb = %g, op = %c, exp = %d\n", sct->nb, sct->op, sct->exp);
+        sct = sct->next;
+    }
+}
+
 int main(int ac, char **av)
 {
     char* str = NULL;
@@ -28,11 +37,11 @@ int main(int ac, char **av)
     int deg = 0;
     if (parser(str, &left, &right, &deg) || deg < 0)
     {
-        printf("Bad format error\n");
-        //fonction free a rajouter
+        free_structs(&left, &right);
         return (1);
     }
-    // parser(str, &left, &right, &deg);
+    // show_sct(left);
     calc(left, right, deg);
+    free_structs(&left, &right);
     return (0);
 }
