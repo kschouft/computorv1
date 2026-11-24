@@ -25,7 +25,7 @@ int main(int ac, char **av)
     char* str = NULL;
     if (ac > 2)
         return 1;
-    else if (ac == 1)
+    else if (ac)
     {
         str = readline("");
         (void)str;
