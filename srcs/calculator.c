@@ -47,7 +47,7 @@ void solution(t_final* final, int deg)
     if (lvl == 0)
     {
         if (final[0].nb != 0)
-            printf("No solution\n");
+            printf("No solution.\n");
         else
             printf("Any real number is a solution.\n");
     }
