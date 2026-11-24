@@ -89,7 +89,7 @@ int fill_node(char* str, int* i, t_struct* curr, int* deg)
         return 1;
     if (curr->op == '-' && curr->nb >= 0)
     {
-        int tmp = curr->nb;
+        double tmp = curr->nb;
         curr->nb = -tmp;
     }
     return 0;    

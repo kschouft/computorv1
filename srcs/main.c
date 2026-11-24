@@ -40,7 +40,8 @@ int main(int ac, char **av)
         free_structs(&left, &right);
         return (1);
     }
-    // show_sct(left);
+    show_sct(left);
+    show_sct(right);
     calc(left, right, deg);
     free_structs(&left, &right);
     return (0);
